@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vendor Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f3f3;
+      margin: 0;
+      padding: 0;
+ 
+    }
+        .hero {    
+            background: linear-gradient(135deg,   rgb(52,45, 11), rgb(52, 45, 11), rgb(98, 85, 38));
+            color: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+
+    header {
+      background: #ff6600;
+      color: white;
+      padding: 15px 25px;
+      display: flex;
+      align-items: left;
+      justify-content: space-between;
+    margin-bottom:20px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 26px;
+      font-weight: bold;
+    }
+    header .lang {
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin:  auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 20px;
+    box-shadow:0 4px 10px #000;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+      color: #000;
+    }
+    input::placeholder, textarea::placeholder {
+      color: rgba(0,0,0,0.5);
+    }
+
+    .row {
+      display: flex;
+      gap: 20px;
+    }
+    .row > div {
+      flex: 1;
+    }
+
+    .checkbox-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: normal;
+    }
+
+    button {
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    .btn-primary { background: rgb(52,45, 11); color: #fff; }
+    .btn-secondary { background: #fff; color: #000; }
+    .btn-export { background: #fff; color: #000; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
+    th {
+      background: #2e4d8f;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+  <img src="Caloocan_Logo.png" alt="Caloocan Logo" style="height:60px; vertical-align:middle; margin-right:10px;">
+  <img src="Caloocan_Typography.png" alt="Caloocan Typography" style="height:60px; vertical-align:middle;">
+
+    <div class="lang">English | Tagalog</div>
+  </header>
+
+   <div class="hero">
+    <h1>Public Market Vendor Registration</h1>
+    <p>Register and monitor public market vendors for improved health and safety standards.</p>
+    <br>
+    </div>
+
+  <div class="container">
+    <div class="card">
+      <h2>🏪 Market Vendor Registration</h2>
+      <p>Register and manage vendors in the barangay public market. Track permits, products, and sanitation compliance.</p>
+      <hr>
+
+        <label>Business / Stall Name*</label>
+        <input type="text" name="business" placeholder="ex. Aling Puring Meat Shop" required>
+
+        <label>Product Type*</label>
+        <select name="product" required>
+          <option disabled selected>Select Category</option>
+          <option>Vegetables</option>
+          <option>Meat</option>
+          <option>Fish</option>
+        </select>
+
+        <label>Stall Number*</label>
+        <input type="text" name="stall" placeholder="ex. D-01" required>
+
+        <label>Business Permit No.*</label>
+        <input type="text" name="permit" placeholder="ex. 2022E-SNGNDN-12532" required>
+
+        <label>Vendor Name*</label>
+        <input type="text" name="vendor" placeholder="ex. Aling Puring" required>
+
+        <label>Contact Number*</label>
+        <input type="text" name="contact" placeholder="ex. 09XX-XXX-XXXX" required>
+        </div>
+
+        <div class="card">
+        <h3>🧹 Compliance & Sanitation Check</h3>
+        <label>Sanitary Practice Rating*</label>
+        <select name="sanitary" required>
+          <option disabled selected>Select Status</option>
+          <option>Excellent</option>
+          <option>Good</option>
+          <option>Fair</option>
+          <option>Poor</option>
+        </select>
+
+        <label>Last Medical Checkup*</label>
+        <input type="date" name="checkup" required>
+
+        <label>Stall Cleanliness Rating*</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="cleanliness" value="Daily Cleaning"> Daily Cleaning</label>
+          <label><input type="checkbox" name="cleanliness" value="Proper Waste Disposal"> Proper Waste Disposal</label>
+          <label><input type="checkbox" name="cleanliness" value="Food & Cover Protection"> Food & Cover Protection</label>
+          <label><input type="checkbox" name="cleanliness" value="Pest Control"> Pest Control</label>
+          <label><input type="checkbox" name="cleanliness" value="Handwashing Facility"> Handwashing Facility</label>
+          <label><input type="checkbox" name="cleanliness" value="Others"> Others: <input type="text" name="others"></label>
+        </div>
+
+        <label>Inspector Remarks</label>
+        <textarea name="remarks" placeholder="Observations, violations or commendations..." required></textarea>
+         </div>
+
+        <button type="submit" class="btn-primary">📁Register Vendor</button>
+        <button type="reset" class="btn-secondary">♻️Clear Form</button>
+        <button type="button" class="btn-export">📊Export to Excel</button>
+        <br><br>
+      </form>
+     
+
+    <h2>Registered Vendors</h2>
+    <table>
+      <tr>
+        <th>#</th>
+        <th>Business Name</th>
+        <th>Vendor</th>
+        <th>Product</th>
+        <th>Permit No.</th>
+        <th>Stall</th>
+        <th>Sanitation</th>
+        <th>Status</th>
+      </tr>
+      <tr><td colspan="8">No vendors registered yet.</td></tr>
+    </table>
+  </div>
+</body>
+</html>
