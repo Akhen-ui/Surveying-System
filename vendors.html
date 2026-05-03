@@ -5,20 +5,19 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f3f3f3;
+      background: #e8d5c4;
       margin: 0;
       padding: 0;
- 
     }
-        .hero {    
-            background: linear-gradient(135deg,   rgb(52,45, 11), rgb(52, 45, 11), rgb(98, 85, 38));
-            color: #fff;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
 
+    .hero {    
+      background: linear-gradient(135deg, rgb(52,45,11), rgb(52,45,11), rgb(98,85,38));
+      color: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
     header {
       background: #ff6600;
@@ -27,40 +26,66 @@
       display: flex;
       align-items: left;
       justify-content: space-between;
-    margin-bottom:20px;
+      margin-bottom: 20px;
     }
+
     header h1 {
       margin: 0;
       font-size: 26px;
       font-weight: bold;
     }
+
     header .lang {
       font-size: 14px;
     }
 
     .container {
       max-width: 900px;
-      margin:  auto;
+      margin: auto;
       padding: 20px;
     }
 
     .card {
-      background: #fff;
+      background: linear-gradient(135deg, #8b7355 0%, #a0826d 50%, #8b7355 100%);
       border-radius: 12px;
       padding: 25px;
       margin-bottom: 20px;
-    box-shadow:0 4px 10px #000;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+      border: 2px solid #6b5344;
+      position: relative;
+      background-image: 
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 2px,
+          rgba(0,0,0,0.03) 2px,
+          rgba(0,0,0,0.03) 4px
+        ),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0,0,0,0.03) 2px,
+          rgba(0,0,0,0.03) 4px
+        );
     }
 
     h2 {
       margin-top: 0;
-      color: #333;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    h3 {
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
 
     label {
       font-weight: bold;
       display: block;
       margin-top: 10px;
+      color: #f5f5f5;
     }
 
     input, select, textarea {
@@ -68,11 +93,13 @@
       padding: 10px;
       margin-top: 6px;
       margin-bottom: 15px;
-      border: 1px solid #ccc;
+      border: 1px solid #999;
       border-radius: 8px;
       box-sizing: border-box;
       color: #000;
+      background: #faf8f3;
     }
+
     input::placeholder, textarea::placeholder {
       color: rgba(0,0,0,0.5);
     }
@@ -81,14 +108,33 @@
       display: flex;
       gap: 20px;
     }
+
     .row > div {
       flex: 1;
     }
 
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
     .checkbox-group label {
-      display: block;
-      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
       font-weight: normal;
+      cursor: pointer;
+      color: #f5f5f5;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: auto;
+      margin-right: 10px;
+      margin-top: 0;
+      margin-bottom: 0;
+      cursor: pointer;
     }
 
     button {
@@ -98,50 +144,165 @@
       cursor: pointer;
       font-weight: bold;
       margin-right: 10px;
+      margin-top: 15px;
+      transition: all 0.3s ease;
     }
-    .btn-primary { background: rgb(52,45, 11); color: #fff; }
-    .btn-secondary { background: #fff; color: #000; }
-    .btn-export { background: #fff; color: #000; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #52452d 0%, #6b5c42 50%, #52452d 100%);
+      color: #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #3a3220 0%, #5a4b32 50%, #3a3220 100%);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+    }
+
+    .btn-secondary {
+      background: #f0e6d2;
+      color: #333;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .btn-secondary:hover {
+      background: #e8dcc5;
+    }
+
+    .btn-export {
+      background: #4CAF50;
+      color: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .btn-export:hover {
+      background: #45a049;
+    }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      background: #fff;
+      background: linear-gradient(135deg, #d4a574 0%, #c89968 50%, #d4a574 100%);
       border-radius: 10px;
       overflow: hidden;
       margin-top: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      border: 2px solid #8b7355;
     }
+
     th, td {
       padding: 12px;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid #9e8b7a;
       text-align: center;
     }
+
     th {
-      background: #2e4d8f;
+      background: linear-gradient(135deg, #5c4033 0%, #6b5344 50%, #5c4033 100%);
       color: #fff;
+      font-weight: bold;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    tr:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+
+    td {
+      color: #333;
+    }
+
+    /* Warning highlights for non-compliant vendors */
+    .status-excellent {
+      background-color: #c8e6c9;
+      color: #2e7d32;
+      font-weight: bold;
+      border-radius: 4px;
+      padding: 4px 8px;
+    }
+
+    .status-good {
+      background-color: #bbdefb;
+      color: #1565c0;
+      font-weight: bold;
+      border-radius: 4px;
+      padding: 4px 8px;
+    }
+
+    .status-fair {
+      background-color: #ffe0b2;
+      color: #e65100;
+      font-weight: bold;
+      border-radius: 4px;
+      padding: 4px 8px;
+    }
+
+    .status-poor {
+      background-color: #ffcdd2;
+      color: #c62828;
+      font-weight: bold;
+      border-radius: 4px;
+      padding: 4px 8px;
+    }
+
+    .row-warning {
+      background-color: rgba(255, 193, 7, 0.2) !important;
+      border-left: 4px solid #ffc107;
+    }
+
+    .empty-message {
+      text-align: center;
+      color: #666;
+      padding: 20px;
+      font-style: italic;
+    }
+
+    .alert {
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .alert-success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      display: block;
+    }
+
+    .vendor-list-section {
+      margin-top: 40px;
+    }
+
+    .vendor-list-section h2 {
+      color: #333;
+      text-shadow: none;
     }
   </style>
 </head>
 <body>
   <header>
-  <img src="Caloocan_Logo.png" alt="Caloocan Logo" style="height:60px; vertical-align:middle; margin-right:10px;">
-  <img src="Caloocan_Typography.png" alt="Caloocan Typography" style="height:60px; vertical-align:middle;">
-
+    <img src="Assets/Images/Caloocan_Logo.png" alt="Caloocan Logo" style="height:60px; vertical-align:middle; margin-right:10px;">
+    <img src="Assets/Images/Caloocan_Typography.png" alt="Caloocan Typography" style="height:60px; vertical-align:middle;">
     <div class="lang">English | Tagalog</div>
   </header>
 
-   <div class="hero">
-    <h1>Public Market Vendor Registration</h1>
+  <div class="hero">
+    <h1>🏪 Public Market Vendor Registration</h1>
     <p>Register and monitor public market vendors for improved health and safety standards.</p>
-    <br>
-    </div>
+  </div>
 
   <div class="container">
+    <div id="successAlert" class="alert alert-success">
+      ✓ Vendor registered successfully!
+    </div>
+
     <div class="card">
       <h2>🏪 Market Vendor Registration</h2>
-      <p>Register and manage vendors in the barangay public market. Track permits, products, and sanitation compliance.</p>
-      <hr>
+      <p style="color: #f5f5f5;">Register and manage vendors in the barangay public market. Track permits, products, and sanitation compliance.</p>
+      <hr style="border-color: #6b5344;">
 
+      <form id="vendorForm">
         <label>Business / Stall Name*</label>
         <input type="text" name="business" placeholder="ex. Aling Puring Meat Shop" required>
 
@@ -151,6 +312,8 @@
           <option>Vegetables</option>
           <option>Meat</option>
           <option>Fish</option>
+          <option>Fruits</option>
+          <option>Dry Goods</option>
         </select>
 
         <label>Stall Number*</label>
@@ -164,17 +327,16 @@
 
         <label>Contact Number*</label>
         <input type="text" name="contact" placeholder="ex. 09XX-XXX-XXXX" required>
-        </div>
 
-        <div class="card">
         <h3>🧹 Compliance & Sanitation Check</h3>
+
         <label>Sanitary Practice Rating*</label>
         <select name="sanitary" required>
           <option disabled selected>Select Status</option>
-          <option>Excellent</option>
-          <option>Good</option>
-          <option>Fair</option>
-          <option>Poor</option>
+          <option value="Excellent">Excellent</option>
+          <option value="Good">Good</option>
+          <option value="Fair">Fair</option>
+          <option value="Poor">Poor</option>
         </select>
 
         <label>Last Medical Checkup*</label>
@@ -187,34 +349,157 @@
           <label><input type="checkbox" name="cleanliness" value="Food & Cover Protection"> Food & Cover Protection</label>
           <label><input type="checkbox" name="cleanliness" value="Pest Control"> Pest Control</label>
           <label><input type="checkbox" name="cleanliness" value="Handwashing Facility"> Handwashing Facility</label>
-          <label><input type="checkbox" name="cleanliness" value="Others"> Others: <input type="text" name="others"></label>
+          <label><input type="checkbox" name="cleanliness" value="Others"> Others: <input type="text" name="others" placeholder="Specify..."></label>
         </div>
 
         <label>Inspector Remarks</label>
-        <textarea name="remarks" placeholder="Observations, violations or commendations..." required></textarea>
-         </div>
+        <textarea name="remarks" placeholder="Observations, violations or commendations..." rows="4"></textarea>
 
-        <button type="submit" class="btn-primary">📁Register Vendor</button>
-        <button type="reset" class="btn-secondary">♻️Clear Form</button>
-        <button type="button" class="btn-export">📊Export to Excel</button>
-        <br><br>
+        <button type="submit" class="btn-primary">📁 Register Vendor</button>
+        <button type="reset" class="btn-secondary">♻️ Clear Form</button>
+        <button type="button" class="btn-export" onclick="exportToExcel()">📊 Export to Excel</button>
       </form>
-     
+    </div>
 
-    <h2>Registered Vendors</h2>
-    <table>
-      <tr>
-        <th>#</th>
-        <th>Business Name</th>
-        <th>Vendor</th>
-        <th>Product</th>
-        <th>Permit No.</th>
-        <th>Stall</th>
-        <th>Sanitation</th>
-        <th>Status</th>
-      </tr>
-      <tr><td colspan="8">No vendors registered yet.</td></tr>
-    </table>
+    <div class="vendor-list-section">
+      <h2>📋 Registered Vendors</h2>
+      <table id="vendorTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Business Name</th>
+            <th>Vendor</th>
+            <th>Product</th>
+            <th>Permit No.</th>
+            <th>Stall</th>
+            <th>Sanitation</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="vendorTableBody">
+          <tr>
+            <td colspan="9" class="empty-message">No vendors registered yet.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+
+  <script>
+    let vendors = JSON.parse(localStorage.getItem('vendors')) || [];
+
+    document.getElementById('vendorForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const cleanliness = Array.from(document.querySelectorAll('input[name="cleanliness"]:checked'))
+        .map(cb => cb.value)
+        .join(', ');
+
+      const vendor = {
+        id: Date.now(),
+        business: document.querySelector('input[name="business"]').value,
+        product: document.querySelector('select[name="product"]').value,
+        stall: document.querySelector('input[name="stall"]').value,
+        permit: document.querySelector('input[name="permit"]').value,
+        vendorName: document.querySelector('input[name="vendor"]').value,
+        contact: document.querySelector('input[name="contact"]').value,
+        sanitary: document.querySelector('select[name="sanitary"]').value,
+        checkup: document.querySelector('input[name="checkup"]').value,
+        cleanliness: cleanliness,
+        others: document.querySelector('input[name="others"]').value,
+        remarks: document.querySelector('textarea[name="remarks"]').value,
+        registered: new Date().toLocaleDateString()
+      };
+
+      vendors.push(vendor);
+      localStorage.setItem('vendors', JSON.stringify(vendors));
+
+      // Show success alert
+      const alert = document.getElementById('successAlert');
+      alert.style.display = 'block';
+      setTimeout(() => alert.style.display = 'none', 3000);
+
+      this.reset();
+      renderTable();
+    });
+
+    function renderTable() {
+      const tbody = document.getElementById('vendorTableBody');
+      
+      if (vendors.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" class="empty-message">No vendors registered yet.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = vendors.map((vendor, index) => {
+        const statusClass = `status-${vendor.sanitary.toLowerCase()}`;
+        const isWarning = vendor.sanitary === 'Poor' || vendor.sanitary === 'Fair';
+        const rowClass = isWarning ? 'row-warning' : '';
+
+        return `
+          <tr class="${rowClass}">
+            <td>${index + 1}</td>
+            <td>${vendor.business}</td>
+            <td>${vendor.vendorName}</td>
+            <td>${vendor.product}</td>
+            <td>${vendor.permit}</td>
+            <td>${vendor.stall}</td>
+            <td><span class="${statusClass}">${vendor.sanitary}</span></td>
+            <td>${vendor.registered}</td>
+            <td>
+              <button onclick="deleteVendor(${vendor.id})" style="background: #ff6b6b; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Delete</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function deleteVendor(id) {
+      if (confirm('Are you sure you want to delete this vendor?')) {
+        vendors = vendors.filter(v => v.id !== id);
+        localStorage.setItem('vendors', JSON.stringify(vendors));
+        renderTable();
+      }
+    }
+
+    function exportToExcel() {
+      if (vendors.length === 0) {
+        alert('No vendors to export!');
+        return;
+      }
+
+      let csvContent = 'data:text/csv;charset=utf-8,';
+      csvContent += 'Business Name,Vendor Name,Product,Stall,Permit No.,Contact,Sanitation Rating,Medical Checkup,Cleanliness,Inspector Remarks,Registered Date\n';
+
+      vendors.forEach(vendor => {
+        const row = [
+          `"${vendor.business}"`,
+          `"${vendor.vendorName}"`,
+          `"${vendor.product}"`,
+          `"${vendor.stall}"`,
+          `"${vendor.permit}"`,
+          `"${vendor.contact}"`,
+          `"${vendor.sanitary}"`,
+          `"${vendor.checkup}"`,
+          `"${vendor.cleanliness}"`,
+          `"${vendor.remarks}"`,
+          `"${vendor.registered}"`
+        ].join(',');
+        csvContent += row + '\n';
+      });
+
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `Vendor_Registry_${new Date().toISOString().split('T')[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Initial render
+    renderTable();
+  </script>
 </body>
 </html>
