@@ -1,6 +1,5 @@
 //  PUBLIC MARKET VENDOR REGISTRATION — SCRIPT
 
-
 let vendors = JSON.parse(localStorage.getItem('vendors')) || [];
 
 // ── TOAST HELPER ─────────────────────────────────────────────
@@ -23,7 +22,6 @@ document.getElementById('vendorForm').addEventListener('submit', function (e) {
   const vendorName = document.getElementById('v_vendor').value.trim();
   const contact    = document.getElementById('v_contact').value.trim();
   const sanitary   = document.getElementById('v_sanitary').value;
-  const checkup    = document.getElementById('v_checkup').value;
   const remarks    = document.getElementById('v_remarks').value.trim();
 
   const cleanliness = Array.from(document.querySelectorAll('input[name="cleanliness"]:checked'))
@@ -48,11 +46,6 @@ document.getElementById('vendorForm').addEventListener('submit', function (e) {
     return;
   }
 
-  if (!checkup) {
-    showToast('⚠️ Please enter the last medical checkup date.');
-    return;
-  }
-
   // ── BUILD VENDOR OBJECT ────────────────────────────────────
   const vendor = {
     id:          Date.now(),
@@ -63,7 +56,6 @@ document.getElementById('vendorForm').addEventListener('submit', function (e) {
     vendorName,
     contact,
     sanitary,
-    checkup,
     cleanliness: cleanliness + (othersText ? `, Others: ${othersText}` : ''),
     remarks,
     registered:  new Date().toLocaleDateString()
@@ -141,7 +133,7 @@ function exportToExcel() {
   // Build worksheet rows
   const headers = [
     '#', 'Business Name', 'Vendor Name', 'Product', 'Stall',
-    'Permit No.', 'Contact', 'Sanitation Rating', 'Medical Checkup',
+    'Permit No.', 'Contact', 'Sanitation Rating',
     'Cleanliness', 'Inspector Remarks', 'Registered Date'
   ];
 
@@ -154,7 +146,6 @@ function exportToExcel() {
     v.permit,
     v.contact,
     v.sanitary,
-    v.checkup,
     v.cleanliness,
     v.remarks,
     v.registered
