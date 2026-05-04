@@ -1,6 +1,6 @@
-//  PUBLIC MARKET VENDOR REGISTRATION — SCRIPT
+// ── PUBLIC MARKET VENDOR REGISTRATION — SCRIPT ───────────────
 
-let vendors = JSON.parse(localStorage.getItem('vendors')) || [];
+let vendors = [];
 
 // ── TOAST HELPER ─────────────────────────────────────────────
 function showToast(message, duration = 3000) {
@@ -14,7 +14,7 @@ function showToast(message, duration = 3000) {
 document.getElementById('vendorForm').addEventListener('submit', function (e) {
   e.preventDefault();
 
-  // ── READ VALUES (using new IDs from updated HTML) ──────────
+  // ── READ VALUES ───────────────────────────────────────────
   const business   = document.getElementById('v_business').value.trim();
   const product    = document.getElementById('v_product').value;
   const stall      = document.getElementById('v_stall').value.trim();
@@ -24,29 +24,31 @@ document.getElementById('vendorForm').addEventListener('submit', function (e) {
   const sanitary   = document.getElementById('v_sanitary').value;
   const remarks    = document.getElementById('v_remarks').value.trim();
 
-  const cleanliness = Array.from(document.querySelectorAll('input[name="cleanliness"]:checked'))
-    .map(cb => cb.value)
-    .join(', ');
+  const cleanChecked = Array.from(document.querySelectorAll('input[name="cleanliness"]:checked'));
+  const cleanParts   = cleanChecked.map(cb => {
+    if (cb.value === 'Others') {
+      const txt = document.getElementById('cleanOthersText').value.trim();
+      return txt ? 'Others: ' + txt : 'Others';
+    }
+    return cb.value;
+  });
+  const cleanliness = cleanParts.join(', ');
 
-  const othersText = document.getElementById('cleanOthersText').value.trim();
-
-  // ── VALIDATION ─────────────────────────────────────────────
+  // ── VALIDATION ────────────────────────────────────────────
   if (!business || !stall || !permit || !vendorName || !contact) {
     showToast('⚠️ Please fill in all required fields.');
     return;
   }
-
   if (!product) {
     showToast('⚠️ Please select a product category.');
     return;
   }
-
   if (!sanitary) {
     showToast('⚠️ Please select a sanitary practice rating.');
     return;
   }
 
-  // ── BUILD VENDOR OBJECT ────────────────────────────────────
+  // ── BUILD VENDOR OBJECT ───────────────────────────────────
   const vendor = {
     id:          Date.now(),
     business,
@@ -56,15 +58,13 @@ document.getElementById('vendorForm').addEventListener('submit', function (e) {
     vendorName,
     contact,
     sanitary,
-    cleanliness: cleanliness + (othersText ? `, Others: ${othersText}` : ''),
+    cleanliness,
     remarks,
     registered:  new Date().toLocaleDateString()
   };
 
-  // ── SAVE & RENDER ───────────────────────────────────────────
+  // ── SAVE & RENDER ─────────────────────────────────────────
   vendors.push(vendor);
-  localStorage.setItem('vendors', JSON.stringify(vendors));
-
   showToast('✅ Vendor registered successfully!');
   this.reset();
   renderTable();
@@ -117,24 +117,30 @@ function renderTable() {
 function deleteVendor(id) {
   if (confirm('Are you sure you want to delete this vendor?')) {
     vendors = vendors.filter(v => v.id !== id);
-    localStorage.setItem('vendors', JSON.stringify(vendors));
     renderTable();
     showToast('🗑 Vendor deleted.');
   }
 }
 
-// ── EXPORT TO EXCEL (.xlsx) ───────────────────────────────────
-function exportToExcel() {
+// ── EXPORT TO CSV (reads from vendors array) (Edited Function) ───────────────────
+function exportToCSV() {
   if (vendors.length === 0) {
-    showToast('⚠️ No vendors to export!');
+    showToast('⚠️ No vendors to export! Register at least one vendor first.');
     return;
   }
 
-  // Build worksheet rows
   const headers = [
-    '#', 'Business Name', 'Vendor Name', 'Product', 'Stall',
-    'Permit No.', 'Contact', 'Sanitation Rating',
-    'Cleanliness', 'Inspector Remarks', 'Registered Date'
+    'No.',
+    'Business Name',
+    'Vendor Name',
+    'Product Type',
+    'Stall Number',
+    'Permit No.',
+    'Contact',
+    'Sanitary Rating',
+    'Cleanliness',
+    'Inspector Remarks',
+    'Registered Date'
   ];
 
   const rows = vendors.map((v, i) => [
@@ -151,50 +157,24 @@ function exportToExcel() {
     v.registered
   ]);
 
-  // Convert to worksheet XML
-  const wsData = [headers, ...rows];
-  const xmlRows = wsData.map(row =>
-    '<Row>' + row.map(cell => {
-      const isNum = typeof cell === 'number';
-      return isNum
-        ? `<Cell><Data ss:Type="Number">${cell}</Data></Cell>`
-        : `<Cell><Data ss:Type="String">${String(cell).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</Data></Cell>`;
-    }).join('') + '</Row>'
-  ).join('');
+  const csvContent = [headers, ...rows]
+    .map(row =>
+      row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')
+    )
+    .join('\n');
 
-  const xmlContent = `<?xml version="1.0"?>
-<?mso-application progid="Excel.Sheet"?>
-<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
-  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
-  <Styles>
-    <Style ss:ID="header">
-      <Font ss:Bold="1"/>
-      <Interior ss:Color="#5C3820" ss:Pattern="Solid"/>
-      <Font ss:Color="#FFFFFF" ss:Bold="1"/>
-    </Style>
-  </Styles>
-  <Worksheet ss:Name="Registered Vendors">
-    <Table>
-      ${xmlRows}
-    </Table>
-  </Worksheet>
-</Workbook>`;
-
-  const blob = new Blob([xmlContent], { type: 'application/vnd.ms-excel' });
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
   const url  = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href  = url;
-  link.download = `Vendor_Registry_${new Date().toISOString().split('T')[0]}.xls`;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = `Vendor_Registry_${new Date().toISOString().split('T')[0]}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
   URL.revokeObjectURL(url);
 
-  showToast('📊 Exported to Excel successfully!');
+  showToast('📥 CSV exported successfully!');
 }
-
-// ── EXPORT BUTTON LISTENER ────────────────────────────────────
-document.getElementById('exportVendorBtn').addEventListener('click', exportToExcel);
 
 // ── SECURITY: ESCAPE HTML ─────────────────────────────────────
 function escapeHtml(str) {
@@ -207,36 +187,3 @@ function escapeHtml(str) {
 
 // ── INITIAL RENDER ────────────────────────────────────────────
 renderTable();
-
-function exportToCSV() {
-  const business = document.getElementById("v_business").value;
-  const product = document.getElementById("v_product").value;
-  const stall = document.getElementById("v_stall").value;
-  const permit = document.getElementById("v_permit").value;
-  const vendor = document.getElementById("v_vendor").value;
-  const contact = document.getElementById("v_contact").value;
-  const sanitary = document.getElementById("v_sanitary").value;
-  const remarks = document.getElementById("v_remarks").value;
-
-  // Get checked cleanliness options
-  const cleanliness = [...document.querySelectorAll('input[name="cleanliness"]:checked')]
-    .map(cb => cb.value === "Others"
-      ? document.getElementById("cleanOthersText").value
-      : cb.value)
-    .join(" | ");
-
-  const headers = "Business Name,Product Type,Stall Number,Permit No.,Vendor Name,Contact,Sanitary Rating,Cleanliness,Remarks";
-  const row = `"${business}","${product}","${stall}","${permit}","${vendor}","${contact}","${sanitary}","${cleanliness}","${remarks}"`;
-
-  const csvContent = headers + "\n" + row;
-
-  const blob = new Blob([csvContent], { type: "text/csv" });
-  const url = URL.createObjectURL(blob);
-
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "vendor_record.csv";
-  a.click();
-
-  URL.revokeObjectURL(url);
-}
