@@ -1,0 +1,373 @@
+/* =========================
+    RESET & ROOT VARIABLES
+========================= */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --orange: #c2642f;
+    --brown-red: #9d3d25;
+    --orange-light: #e06a2e;
+    --gold: #e0a840;
+    --bg: #e8e4dc;
+    --text: #111;
+    --card-r: 20px;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f0eeeb;
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 39px,
+            rgba(0, 0, 0, 0.04) 39px,
+            rgba(0, 0, 0, 0.04) 40px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 39px,
+            rgba(0, 0, 0, 0.04) 39px,
+            rgba(0, 0, 0, 0.04) 40px
+        );
+    color: #1a1a1a;
+    min-height: 100vh;
+}
+
+
+/* =========================
+    NAVBAR
+========================= */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: linear-gradient(90deg, var(--orange) 0%, var(--brown-red) 100%);
+    padding: 10px 30px;
+    height: 70px;
+    box-shadow: 0 4px 0 0 #f17527;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.caloocan-logo {
+    order: 1;
+}
+
+.caloocan-typography {
+    order: 2;
+}
+
+.caloocan-logo img {
+    height: 50px;
+    width: auto;
+    display: block;
+}
+
+.caloocan-typography img {
+    height: 35px;
+    width: auto;
+    display: block;
+}
+
+
+/* =========================
+    MAIN LAYOUT
+========================= */
+main {
+    position: relative;
+    z-index: 1;
+
+    min-height: calc(100vh - clamp(58px, 9vw, 78px));
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: clamp(36px, 7vw, 90px) clamp(16px, 5vw, 60px);
+}
+
+.section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(10px, 1.2vw, 13px);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+
+    color: var(--rust);
+    margin-bottom: 10px;
+
+    opacity: 0;
+    animation: fadeUp 0.5s 0.05s ease forwards;
+}
+
+.page-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: clamp(30px, 5.5vw, 64px);
+
+    color: var(--text);
+    text-align: center;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+
+    margin-bottom: 12px;
+
+    opacity: 0;
+    animation: fadeUp 0.5s 0.1s ease forwards;
+}
+
+.page-sub {
+    font-size: clamp(13px, 1.6vw, 17px);
+    color: #6b6460;
+    text-align: center;
+    font-weight: 400;
+
+    margin-bottom: clamp(36px, 6vw, 70px);
+
+    opacity: 0;
+    animation: fadeUp 0.5s 0.18s ease forwards;
+}
+
+
+/* =========================
+CARDS GRID
+========================= */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: clamp(20px, 3.5vw, 40px);
+
+    width: 100%;
+    max-width: 1140px;
+}
+
+.card {
+    position: relative;
+    border-radius: var(--card-r);
+    overflow: hidden;
+    text-decoration: none;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    min-height: clamp(230px, 30vw, 320px);
+    padding: clamp(28px, 4vw, 46px) clamp(26px, 3.5vw, 42px);
+
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.22),
+                0 2px 8px rgba(0, 0, 0, 0.14);
+
+    transition: transform 0.3s cubic-bezier(.22, .68, 0, 1.25),
+                box-shadow 0.3s ease;
+
+    cursor: pointer;
+    outline: none;
+
+    opacity: 0;
+    animation: fadeUp 0.55s ease forwards;
+}
+
+.card:nth-child(1) {
+    animation-delay: 0.25s;
+}
+
+.card:nth-child(2) {
+    animation-delay: 0.38s;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.012);
+    box-shadow: 0 22px 70px rgba(0, 0, 0, 0.3),
+                0 4px 16px rgba(0, 0, 0, 0.18);
+}
+
+.card:active {
+    transform: translateY(-3px) scale(1.004);
+}
+
+.card:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 5px;
+}
+
+.card::before,
+.card::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.card-body {
+    position: relative;
+    z-index: 2;
+}
+
+.card-arrow {
+    position: absolute;
+    top: clamp(18px, 2.5vw, 28px);
+    right: clamp(18px, 2.5vw, 28px);
+
+    z-index: 3;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #fff;
+    font-size: 18px;
+
+    opacity: 0;
+    transform: translateX(-8px);
+
+    transition: opacity 0.25s, transform 0.25s;
+    backdrop-filter: blur(4px);
+}
+
+.card:hover .card-arrow {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+/* =========================
+    CARD CONTENT
+========================= */
+.card-icon {
+    font-size: clamp(40px, 5.5vw, 58px);
+    display: block;
+
+    margin-bottom: 16px;
+
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
+}
+
+.card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: clamp(19px, 2.8vw, 30px);
+
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 10px;
+
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.card-desc {
+    font-size: clamp(12px, 1.4vw, 15px);
+    color: rgba(255, 255, 255, 0.8);
+
+    line-height: 1.65;
+    max-width: 400px;
+}
+
+.card-chip {
+    display: inline-block;
+
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    border-radius: 30px;
+    padding: 3px 12px;
+
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 14px;
+
+    backdrop-filter: blur(4px);
+}
+
+
+/* =========================
+    CARD THEMES
+========================= */
+.card-health {
+    background: linear-gradient(150deg, #0f1e36 0%, #0d3028 45%, #1a5440 100%);
+}
+
+.card-health::before {
+    width: 300px;
+    height: 300px;
+
+    background: radial-gradient(circle, rgba(38, 160, 112, 0.35), transparent 70%);
+
+    top: -80px;
+    right: -80px;
+}
+
+.card-health::after {
+    width: 200px;
+    height: 200px;
+
+    background: radial-gradient(circle, rgba(15, 60, 80, 0.5), transparent 70%);
+
+    bottom: -60px;
+    left: -20px;
+}
+
+.card-vendor {
+    background: linear-gradient(150deg, #3d1e0a 0%, #7a4822 45%, #b87840 100%);
+}
+
+.card-vendor::before {
+    width: 280px;
+    height: 280px;
+
+    background: radial-gradient(circle, rgba(200, 140, 80, 0.4), transparent 70%);
+
+    top: -70px;
+    right: -70px;
+}
+
+.card-vendor::after {
+    width: 180px;
+    height: 180px;
+
+    background: radial-gradient(circle, rgba(100, 50, 10, 0.5), transparent 70%);
+
+    bottom: -50px;
+    left: 10px;
+}
+
+
+/* =========================
+ANIMATIONS
+========================= */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
